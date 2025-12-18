@@ -22,6 +22,18 @@ jobs:
       - name: Aqua Security Trivy
         uses: aquasecurity/trivy-action@0.33.1
         with:
-         scan-type: fs
+          scan-type: fs
+
+      - name: Build and push Docker images
+        uses: docker/build-push-action@v6.18.0
+        with:
+          context: .
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+          push: true
+          tags: wasimhannure/swiggy-app:latest
+       
+           
+      
         
      
