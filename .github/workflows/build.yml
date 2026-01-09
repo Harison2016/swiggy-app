@@ -49,9 +49,17 @@ jobs:
               az --version
             
 
-      - name: Create Resource Group
+      # - name: Create Resource Group
+      #   run: |
+      #     az group create --name swiggy-clone --location eastus
+      
+      - name: Ensure Resource Group Exists
         run: |
-          az group create --name swiggy-clone --location eastus
+          if ! az group show --name swiggy-clone &>/dev/null; then
+             az group create --name swiggy-clone --location eastus
+          else
+             echo "Resource group 'swiggy-clone' already exists, skipping creation"
+          fi
 
       - name: create aks cluster
         run: |
